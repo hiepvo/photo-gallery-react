@@ -24,25 +24,24 @@ module.exports = {
     }
     return arrList;
   },
-  fetchPhotos: function(type){
-    let arrList      = [];
-    let photosByType = {};
-    if(type.toLowerCase() === 'all'){
-      photosByType = photos;
-    }
-    else{
-      photosByType = photos.filter((item) => item.type.toLowerCase() === type.toLowerCase());
-    }
-    for(let photo of photosByType){
-      for(let g of photography){
-        if(g.user_name === photo.user_name){
-          arrList.push(Object.assign(photo, {'photography': g}));
-        }
-      }
-    }
-    return arrList;
+
+  fetchPhotos: function(data){
+    var photosByGallery = photos.filter((item) => item.gallery_id === parseInt(data.gallery_id));
+    return photosByGallery;
   }
 };
+
+function getRandomSize(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
+
+function getRandHeight(){
+  return  getRandomSize(600, 800);
+}
+
+function getRandWidth(){
+  return getRandomSize(600, 1024);
+}
 
 let galleries = [
   {
@@ -314,7 +313,10 @@ let photos      = [
     curated_by: 'Stephanie Juliet Algieri',
     curated_from_user_name: 'user3',
     is_curated: true,
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
     user_name: 'user1',
     gallery_id: 1
   },
@@ -323,7 +325,11 @@ let photos      = [
     name: 'On The Table',
     curated_by: 'Stephanie Juliet Algieri',
     curated_from_user_name: 'user3',
-    src: '../app/gallery/2.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user1',
     gallery_id: 1
   },
@@ -332,7 +338,11 @@ let photos      = [
     name: 'Winter Camping',
     curated_by: 'Takashi Yasui',
     photo_by: '',
-    src: '../app/gallery/3.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user1',
     gallery_id: 1
   },
@@ -341,7 +351,12 @@ let photos      = [
     name: 'Kyoto',
     curated_by: 'Takashi Yasui',
     photo_by: '',
-    src: '../app/gallery/4.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
+
     user_name: 'user1',
     gallery_id: 1
   },
@@ -350,7 +365,11 @@ let photos      = [
     name: 'Places',
     curated_by: '',
     photo_by: 'Morgan Phillips',
-    src: '../app/gallery/5.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user1',
     gallery_id: 1
   },
@@ -359,7 +378,11 @@ let photos      = [
     name: 'Every Second Count',
     curated_by: '',
     photo_by: 'Janet Weldon',
-    src: '../app/gallery/6.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user1',
     gallery_id: 1
   },
@@ -368,7 +391,11 @@ let photos      = [
     name: 'Marco',
     curated_by: '',
     photo_by: 'Ryan Stovall',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user1',
     gallery_id: 1
   },
@@ -377,7 +404,11 @@ let photos      = [
     name: 'Animals',
     curated_by: '',
     photo_by: 'Anuska Voncina',
-    src: '../app/gallery/2.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user2',
     gallery_id: 1
   },
@@ -386,7 +417,11 @@ let photos      = [
     name: 'World Bellow',
     curated_by: '',
     photo_by: 's1000',
-    src: '../app/gallery/3.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user2',
     gallery_id: 1
   },
@@ -395,7 +430,11 @@ let photos      = [
     name: 'Fresh Faces',
     curated_by: '500px',
     photo_by: '',
-    src: '../app/gallery/4.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user2',
     gallery_id: 1
   },
@@ -404,7 +443,11 @@ let photos      = [
     name: 'Epic Cityscape',
     curated_by: '500px',
     photo_by: '',
-    src: '../app/gallery/5.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user2',
     gallery_id: 1
   },
@@ -413,7 +456,11 @@ let photos      = [
     name: 'Urban Exploration',
     curated_by: '',
     photo_by: 'Contr4st',
-    src: '../app/gallery/6.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user2',
     gallery_id: 1
   },
@@ -422,7 +469,11 @@ let photos      = [
     name: 'Supercells',
     curated_by: 'Kelly DeLay',
     photo_by: '',
-    src: '../app/gallery/13.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user3',
     gallery_id: 1
   },
@@ -431,7 +482,11 @@ let photos      = [
     name: 'Spring in Japan',
     curated_by: '',
     photo_by: 'MIYAMOTO Y',
-    src: '../app/gallery/14.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user3',
     gallery_id: 1
   },
@@ -440,7 +495,11 @@ let photos      = [
     name: 'Around The World',
     curated_by: 'Arnaud Moro',
     photo_by: '',
-    src: '../app/gallery/15.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user3',
     gallery_id: 1
   },
@@ -449,7 +508,11 @@ let photos      = [
     name: 'zen',
     curated_by: 'Arnaud Moro',
     photo_by: '',
-    src: '../app/gallery/16.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user3',
     gallery_id: 1
   },
@@ -458,7 +521,11 @@ let photos      = [
     name: '"My Workplace"',
     curated_by: '',
     photo_by: 'Yeow Chin Liang (Yeow8)',
-    src: '../app/gallery/17.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user3',
     gallery_id: 1
   },
@@ -467,144 +534,499 @@ let photos      = [
     name: 'JULIETTE',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/18.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user3',
-    gallery_id: 2
+    gallery_id: 1
   },
   {
     id: 19,
     name: 'Conceptual',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/19.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandHeight()+'/'
+    ],
+
     user_name: 'user4',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 581,
+    height: 300
   },
   {
     id: 20,
     name: 'Portraits That Will Inspire You',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/20.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user4',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 459,
+    height: 300
   },
   {
     id: 21,
     name: 'Slow Living',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/21.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user4',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 200,
+    height: 300
   },
   {
     id: 22,
     name: 'Gradient',
+    curated_by: '',
+    photo_by: 'Laureen Burton',
     by: '500px',
     type: 'new',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user4',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 200,
+    height: 300
   },
   {
     id: 23,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/2.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user4',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 201,
+    height: 300
   },
   {
     id: 24,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/3.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 457,
+    height: 300
   },
   {
     id: 25,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/4.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 2
+    gallery_id: 2,
+    width: 568,
+    height: 300
   },
   {
     id: 26,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/5.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 565,
+    height: 300
   },
   {
     id: 27,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/6.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 470,
+    height: 300
   },
   {
     id: 28,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 468,
+    height: 300
   },
   {
     id: 29,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 535,
+    height: 300
   },
   {
     id: 30,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 452,
+    height: 300
   },
   {
     id: 31,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 301,
+    height: 300
   },
   {
     id: 32,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 535,
+    height: 300
   },
   {
     id: 33,
     name: 'Gradient',
     curated_by: '',
     photo_by: 'Laureen Burton',
-    src: '../app/gallery/1.jpg',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
     user_name: 'user5',
-    gallery_id: 3
+    gallery_id: 3,
+    width: 580,
+    height: 300
+  },
+  {
+    id: 34,
+    name: 'Look me in the mirror',
+    curated_by: 'Stephanie Juliet Algieri',
+    curated_from_user_name: 'user3',
+    is_curated: true,
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 35,
+    name: 'On The Table',
+    curated_by: 'Stephanie Juliet Algieri',
+    curated_from_user_name: 'user3',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 36,
+    name: 'Winter Camping',
+    curated_by: 'Takashi Yasui',
+    photo_by: '',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 37,
+    name: 'Kyoto',
+    curated_by: 'Takashi Yasui',
+    photo_by: '',
+    src: 'http://www.lorempixel.com/1024/800/',
+    srcSet: [
+      'http://www.lorempixel.com/1024/600/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 38,
+    name: 'Places',
+    curated_by: '',
+    photo_by: 'Morgan Phillips',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 39,
+    name: 'Every Second Count',
+    curated_by: '',
+    photo_by: 'Janet Weldon',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 40,
+    name: 'Marco',
+    curated_by: '',
+    photo_by: 'Ryan Stovall',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 41,
+    name: 'Look me in the mirror',
+    curated_by: 'Stephanie Juliet Algieri',
+    curated_from_user_name: 'user3',
+    is_curated: true,
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 42,
+    name: 'On The Table',
+    curated_by: 'Stephanie Juliet Algieri',
+    curated_from_user_name: 'user3',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 43,
+    name: 'Winter Camping',
+    curated_by: 'Takashi Yasui',
+    photo_by: '',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 44,
+    name: 'Kyoto',
+    curated_by: 'Takashi Yasui',
+    photo_by: '',
+    src: 'http://www.lorempixel.com/1024/800/',
+    srcSet: [
+      'http://www.lorempixel.com/1024/600/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 45,
+    name: 'Places',
+    curated_by: '',
+    photo_by: 'Morgan Phillips',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 46,
+    name: 'Every Second Count',
+    curated_by: '',
+    photo_by: 'Janet Weldon',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 47,
+    name: 'Marco',
+    curated_by: '',
+    photo_by: 'Ryan Stovall',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 48,
+    name: 'Look me in the mirror',
+    curated_by: 'Stephanie Juliet Algieri',
+    curated_from_user_name: 'user3',
+    is_curated: true,
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 49,
+    name: 'On The Table',
+    curated_by: 'Stephanie Juliet Algieri',
+    curated_from_user_name: 'user3',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 50,
+    name: 'Winter Camping',
+    curated_by: 'Takashi Yasui',
+    photo_by: '',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 51,
+    name: 'Kyoto',
+    curated_by: 'Takashi Yasui',
+    photo_by: '',
+    src: 'http://www.lorempixel.com/1024/800/',
+    srcSet: [
+      'http://www.lorempixel.com/1024/600/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 52,
+    name: 'Places',
+    curated_by: '',
+    photo_by: 'Morgan Phillips',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 53,
+    name: 'Every Second Count',
+    curated_by: '',
+    photo_by: 'Janet Weldon',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
+  },
+  {
+    id: 54,
+    name: 'Marco',
+    curated_by: '',
+    photo_by: 'Ryan Stovall',
+    src: 'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/',
+    srcSet: [
+      'http://www.lorempixel.com/'+getRandWidth()+'/'+getRandWidth()+'/'
+    ],
+
+    user_name: 'user1',
+    gallery_id: 1
   },
 ];
 

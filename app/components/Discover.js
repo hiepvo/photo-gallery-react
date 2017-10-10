@@ -15,7 +15,7 @@ function SelectDiscover(props){
                     key = {g}
                     onClick = {props.onSelect.bind(null, g)}
                 >
-                  <NavLink to={"/discover/" +g}>{g.toUpperCase()}</NavLink>
+                  <NavLink to={"/"+g}>{g.toUpperCase()}</NavLink>
 
                 </li>
             )
@@ -35,7 +35,6 @@ class Discover extends React.Component{
     super(props);
     this.state         = {
       selectedDiscover: 'galleries',
-      discover: null,
       sticky: ''
     };
     this.updateDiscover = this.updateDiscover.bind(this);
@@ -47,8 +46,8 @@ class Discover extends React.Component{
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.scrollPos);
+    this.unmounted = true;
   }
-
 
   updateDiscover(nav){
     this.setState(function(){
@@ -63,20 +62,23 @@ class Discover extends React.Component{
     let el = document.querySelector("#sticky");
     let pageY = window.scrollY;
     //  If  we've scrolled past the height of the element, add a class
-
-    if (el.getBoundingClientRect().bottom <= pageY) {
-      this.setState(function(){
-        return {
-          sticky: 'sticky'
-        }
-      });
+    if (el !== null && el.getBoundingClientRect().bottom <= pageY) {
+      if(!this.unmounted){
+        this.setState(function(){
+          return {
+            sticky: 'sticky'
+          }
+        });
+      }
       //  If we've scrolled back up to  the top of the container, remove the class
     } else {
-      this.setState(function(){
-        return {
-          sticky: ''
-        }
-      });
+      if(!this.unmounted){
+        this.setState(function(){
+          return {
+            sticky: ''
+          }
+        });
+      }
     }
   }
 

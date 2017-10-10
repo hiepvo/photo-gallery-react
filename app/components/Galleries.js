@@ -2,7 +2,6 @@ let React = require('react');
 let PropTypes = require('prop-types');
 let api = require('../utils/api');
 let Link = require('react-router-dom').Link;
-
 function SelectGallery(props){
   let gallery = ['All', 'Trending', 'Featured', 'New'];
   return(
@@ -28,8 +27,13 @@ function GalleryGrid(props){
         {props.gallery.map(function(gal, index){
           return(
           <li key={gal.gallery_id} className="grid-item">
-                <Link className="link-wrap" to={"/" + gal.created_by + "/galleries/" + gal.gallery_name1}>
-                </Link>
+            <Link
+                className='link-wrap'
+                to={{
+                  pathname: "/galleries/details"  ,
+                  search: '?usr=' + gal.created_by + '&gallery_id=' + gal.gallery_id
+                }}>
+            </Link>
                 <ul className="space-list-item">
                   <li>
                     <img className="photo"
@@ -59,7 +63,6 @@ function GalleryGrid(props){
       </ul>
   )
 }
-
 
 GalleryGrid.propTypes = {
   gallery: PropTypes.array.isRequired,

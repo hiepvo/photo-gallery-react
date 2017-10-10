@@ -13,7 +13,7 @@ function MainNav(){
         </li>
         <li>
           <img className="icons" src="../app/icons/ic_photos.png" />
-          <NavLink exact activeClassName="active" to="/discover/galleries">Discover</NavLink>
+          <NavLink activeClassName="active" to="/galleries">Discover</NavLink>
         </li>
         <li>
           <img className="icons" src="../app/icons/ic_group.png" />
