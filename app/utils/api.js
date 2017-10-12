@@ -82,7 +82,7 @@ function getRandomSize(min, max){
 }
 
 function getRandHeight(){
-  return getRandomSize(600, 800);
+  return getRandomSize(750, 800);
 }
 
 function getRandWidth(){
@@ -91,12 +91,12 @@ function getRandWidth(){
 
 function generateGalleries(creators){
   let galleries         = [];
-  let numberOfGalleries = getRandomSize(15, 27);
+  let numberOfGalleries = getRandomSize(15, 30);
   for(let i = 0; i < numberOfGalleries; i++){
     if(i % 2 === 0){
       let gal = {
         gallery_id: i + 1,
-        gallery_name: faker.lorem.sentence(),
+        gallery_name: faker.name.findName(),
         created_by: '',
         avatar: faker.image.avatar(),
         curated_by: faker.name.findName(),
@@ -108,7 +108,7 @@ function generateGalleries(creators){
     else{
       let gal = {
         gallery_id: i + 1,
-        gallery_name: faker.lorem.sentence(),
+        gallery_name: faker.name.findName(),
         created_by: '',
         avatar: faker.image.avatar(),
         curated_by: '',
@@ -135,7 +135,7 @@ function generatePhotos(galleries){
       let width = getRandWidth();
       var photo = {
         id: j + 1,
-        name: faker.lorem.sentence(),
+        name: faker.name.findName(),
         curated_by: faker.name.findName(),
         src: 'http://placeimg.com/' + width + '/' + height + '/any',
         srcSet: [

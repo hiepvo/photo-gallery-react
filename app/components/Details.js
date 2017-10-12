@@ -5,7 +5,6 @@ var api         = require('../utils/api');
 let Photo       = require('../components/Photos');
 var LightBox    = require('react-images');
 import Lazyload from 'react-lazyload';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 function SelectPhotos(props){
   const width   = props.containerWidth - 1;
@@ -17,12 +16,13 @@ function SelectPhotos(props){
       <div>
         {thumbs.map((photo, index) =>{
           return (
-              <Lazyload throttle = {200} height = {100} key = {photo.id}>
+              <Lazyload throttle = {200} height = {50} key = {photo.id}>
                 <div>
                   <Photo
                       key = {photo.id}
                       index = {index}
                       photo = {photo}
+                      margin = {margin}
                       onClick = {(e) => props.openLightBox(index, e)}
                   />
                 </div>
@@ -51,10 +51,11 @@ class Details extends React.Component {
     this.openLightBox  = this.openLightBox.bind(this);
     this.gotoNext      = this.gotoNext.bind(this);
     this.gotoPrevious  = this.gotoPrevious.bind(this);
+    this.handleResize = this.handleResize.bind(this);
+
   }
 
   openLightBox(index, event){
-    console.log(index)
     event.preventDefault();
     this.setState({
       currentImage: index,
@@ -93,6 +94,7 @@ class Details extends React.Component {
   componentDidMount(){
     this.getPhotos();
     this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentDidUpdate(){
@@ -100,6 +102,16 @@ class Details extends React.Component {
       this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
     }
   }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize, false);
+    localStorage.clear();
+  }
+  handleResize(e) {
+    console.log(e)
+    this.setState({ containerWidth: Math.floor(this.gallery.clientWidth) });
+  }
+
 
   render(){
     return (
@@ -114,7 +126,7 @@ class Details extends React.Component {
                   openLightBox = {this.openLightBox}
               />
                 <LightBox
-                    images = {this.state.photos.map(x => ({ src: x.src , srcset: x.srcSet}))}
+                    images = {this.state.photos.map(x => ({ src: x.src, caption: x.name}))}
                     isOpen = {this.state.LightBoxIsOpen}
                     onClickPrev = {this.gotoPrevious}
                     onClickNext = {this.gotoNext}
@@ -123,6 +135,7 @@ class Details extends React.Component {
                 />
               </div>
           }
+          <div style={{ content: '', display: 'table', clear: 'both' }}></div>
         </div>
     );
   }
@@ -131,6 +144,6 @@ class Details extends React.Component {
 module.exports = Details;
 
 Details.defaultProps = {
-  columns: 3,
+  columns: 4,
   margin: 0,
 };

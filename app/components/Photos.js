@@ -2,9 +2,6 @@ let React     = require('react');
 let Link      = require('react-router-dom').Link;
 let PropTypes = require('prop-types');
 
-import Lazyload from 'react-lazyload';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-
 function imagesLoaded(parentNode){
   const imgElements = parentNode.querySelectorAll('img');
   for(const img of imgElements){
@@ -36,30 +33,44 @@ class Photos extends React.Component {
     });
   }
 
-  renderSpinner(){
+  renderSpinder(){
     if(!this.state.loading){
       return null;
     }
     return (
-        <span className = "spinner"/>
+        <div className = "spinner"></div>
     );
   }
 
-  render(){
-    const {photo, onClick} = this.props;
-    return (
-        <Lazyload throttle = {200} height = {300}>
+  componentDidMount(){
 
-          <div className = "photo-thumbnail" ref = "thumbnail">
-            <img
-                src = {photo.src}
-                onClick = {onClick ? this.handleClick : null}
-            />
-            <span className = "info-overlay">
-            <Link to = "/galleries" className = "info-title">{photo.name}</Link>
-          </span>
-          </div>
-        </Lazyload>
+  }
+
+  render(){
+    const {photo, onClick, margin} = this.props;
+    const imgStyle                 = {
+      cursor: 'pointer',
+      display: 'block',
+      float: 'left',
+      margin: margin,
+      width: photo.width,
+      height: photo.height
+    };
+
+    return (
+        <div className = "photo-thumbnail" ref = "thumbnail" style = {{...imgStyle}}>
+          {this.renderSpinder()}
+          <img
+              src = {photo.src}
+              onClick = {onClick ? this.handleClick : null}
+              style = {{...imgStyle}}
+              onLoad = {this.handleImageChange.bind(this)}
+              onError = {this.handleImageChange.bind(this)}
+
+          />
+          <span className = "info-overlay">
+            <Link to = "/galleries" className = "info-title">{photo.name}</Link></span>
+        </div>
     )
   }
 }

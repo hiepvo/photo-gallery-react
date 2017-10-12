@@ -41,11 +41,11 @@ class Discover extends React.Component{
   }
   componentDidMount(){
     this.updateDiscover(this.state.selectedDiscover);
-    window.addEventListener('scroll', this.scrollPos.bind(this));
+    document.addEventListener('scroll', this.scrollPos.bind(this));
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.scrollPos);
+    document.removeEventListener('scroll', this.scrollPos);
     this.unmounted = true;
   }
 
