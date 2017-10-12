@@ -39,8 +39,43 @@ module.exports = {
     let photos = JSON.parse(localStorage.getItem('photos'));
     let photosByGallery = photos.filter((item) => item.gallery_id === parseInt(data.gallery_id));
     return photosByGallery;
+  },
+
+  computeSizes: function({ photos, columns, width, margin }) {
+    if (!width) {
+      return [];
+    }
+    // divide photos over rows, max cells based on `columns`
+    // effectively resulting in [[0, 1, 2], [3, 4, 5], [6, 7]]
+    const rows = photos.reduce((acc, cell, idx) => {
+      const row = Math.floor(idx / columns);
+      acc[row] = acc[row] ? [...acc[row], cell] : [cell];
+      return acc;
+    }, []);
+
+    // calculate total ratio of each row, and adjust each cell height and width
+    // accordingly.
+    const lastRowIndex = rows.length - 1;
+    const rowsWithSizes = rows.map((row, rowIndex) => {
+      const totalRatio = row.reduce((result, photo) => result + ratio(photo), 0);
+      const rowWidth = width - row.length * (margin * 2);
+      const height = (rowIndex !== lastRowIndex || row.length > 1)
+          ? rowWidth / totalRatio
+          : rowWidth / columns / totalRatio;
+      return row.map(photo => ({
+        ...photo,
+        height,
+        width: height * ratio(photo),
+      }));
+    });
+
+    return rowsWithSizes.reduce((acc, row) => [...acc, ...row], []);
   }
 };
+
+function ratio({ width, height }) {
+  return width / height;
+}
 
 function getRandomSize(min, max){
   return Math.round(Math.random() * (max - min) + min);
@@ -96,14 +131,18 @@ function generatePhotos(galleries){
   for(let i = 0; i < galleries.length; i++){
     let numberOfPhotos = getRandomSize(50, 100);
     for(let j = 0; j < numberOfPhotos; j++){
+      let height = getRandHeight();
+      let width = getRandWidth();
       var photo = {
         id: j + 1,
         name: faker.lorem.sentence(),
         curated_by: faker.name.findName(),
-        src: 'http://placeimg.com/' + getRandWidth() + '/' + getRandHeight() + '/any',
+        src: 'http://placeimg.com/' + width + '/' + height + '/any',
         srcSet: [
           'http://placeimg.com/' + getRandWidth() + '/' + getRandHeight() + '/any'
         ],
+        width: width,
+        height: height,
         user_name: galleries[i].created_by,
         gallery_id: galleries[i].gallery_id
       }
