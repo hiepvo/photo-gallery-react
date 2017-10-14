@@ -42,10 +42,6 @@ class Photos extends React.Component {
     );
   }
 
-  componentDidMount(){
-
-  }
-
   render(){
     const {photo, onClick, margin} = this.props;
     const imgStyle                 = {

@@ -3,6 +3,7 @@ let React = require('react');
 let Discover = require('./Discover');
 let MainNav = require('./MainNav');
 let Details = require('./Details');
+let Home = require('./Home');
 let ReactRouter = require('react-router-dom');
 let Router = ReactRouter.BrowserRouter;
 let Route = ReactRouter.Route;
@@ -13,8 +14,11 @@ class App extends React.Component{
     return(
         <Router>
           <div className="container">
-            <MainNav />
+            <MainNav>
+              <Route exact path="/"  component={Home}/>
+            </MainNav>
             <Switch>
+              <Route exact path="/"  component={Home}/>
               <Route exact path="/galleries"  component={Discover}/>
               <Route path="/galleries/details"  component={Details}/>
               <Route path="/marketplace"  component={Discover}/>

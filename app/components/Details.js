@@ -11,7 +11,7 @@ function SelectPhotos(props){
   const columns = props.columns;
   const margin  = props.margin;
   const photos  = props.photos;
-  const thumbs = api.computeSizes({width, columns, margin, photos});
+  const thumbs  = api.computeSizes({width, columns, margin, photos});
   return (
       <div>
         {thumbs.map((photo, index) =>{
@@ -45,13 +45,15 @@ class Details extends React.Component {
       containerWidth: 0,
       photos: null,
       currentImage: 0,
+      hasMoreItems: true
+
     };
     this.getPhotos     = this.getPhotos.bind(this);
     this.closeLightBox = this.closeLightBox.bind(this);
     this.openLightBox  = this.openLightBox.bind(this);
     this.gotoNext      = this.gotoNext.bind(this);
     this.gotoPrevious  = this.gotoPrevious.bind(this);
-    this.handleResize = this.handleResize.bind(this);
+    this.handleResize  = this.handleResize.bind(this);
 
   }
 
@@ -83,16 +85,18 @@ class Details extends React.Component {
   }
 
   getPhotos(){
-    let data = queryString.parse(this.props.location.search);
-    this.setState(function(){
-      return {
-        photos: api.fetchPhotos(data)
-      }
-    })
+    if(this.props.location){
+      let data = queryString.parse(this.props.location.search);
+      this.setState(function(){
+        return {
+          photos: api.fetchPhotos(data)
+        }
+      })
+    }
   }
 
-  componentDidMount(){
-    this.getPhotos();
+  async componentDidMount(){
+    await this.getPhotos();
     this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
     window.addEventListener('resize', this.handleResize);
   }
@@ -103,39 +107,43 @@ class Details extends React.Component {
     }
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(){
     window.removeEventListener('resize', this.handleResize, false);
     localStorage.clear();
   }
-  handleResize(e) {
-    console.log(e)
-    this.setState({ containerWidth: Math.floor(this.gallery.clientWidth) });
+
+  handleResize(e){
+    this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
   }
 
-
   render(){
+
     return (
         <div className = "photos-container" ref = {c => (this.gallery = c)}>
           {!this.state.photos
               ? <p>Loading</p>
-              : <div><SelectPhotos
-                  photos = {this.state.photos}
-                  containerWidth = {this.state.containerWidth}
-                  columns = {this.props.columns}
-                  margin = {this.props.margin}
-                  openLightBox = {this.openLightBox}
-              />
-                <LightBox
-                    images = {this.state.photos.map(x => ({ src: x.src, caption: x.name}))}
-                    isOpen = {this.state.LightBoxIsOpen}
-                    onClickPrev = {this.gotoPrevious}
-                    onClickNext = {this.gotoNext}
-                    onClose = {this.closeLightBox}
-                    currentImage = {this.state.currentImage}
+              : <div>
+                <SelectPhotos
+                    photos = {this.state.photos}
+                    containerWidth = {this.state.containerWidth}
+                    columns = {this.props.columns}
+                    margin = {this.props.margin}
+                    openLightBox = {this.openLightBox}
                 />
+                <Lazyload throttle = {200} height = {50} key = "1">
+                  <LightBox
+                      images = {this.state.photos.map(x => ({src: x.src, caption: x.name}))}
+                      isOpen = {this.state.LightBoxIsOpen}
+                      onClickPrev = {this.gotoPrevious}
+                      onClickNext = {this.gotoNext}
+                      onClose = {this.closeLightBox}
+                      currentImage = {this.state.currentImage}
+                  />
+                </Lazyload>
               </div>
+
           }
-          <div style={{ content: '', display: 'table', clear: 'both' }}></div>
+          <div style = {{content: '', display: 'table', clear: 'both'}}></div>
         </div>
     );
   }

@@ -40,9 +40,8 @@ function GalleryGrid(props){
                   </Link>
                   <ul className = "space-list-item">
                     <li>
-                      <img className = "photo"
-                           src = {gal.bg_image}
-                           alt = ""/>
+                      <div className="photo" style ={ { backgroundImage: "url('"+gal.bg_image+"')" } }>
+                      </div>
                     </li>
                     <li>
                       <Link className = "gallery-name"
