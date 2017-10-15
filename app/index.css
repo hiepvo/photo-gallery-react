@@ -52,10 +52,10 @@ li {
 }
 
 .gallery li {
-  font-size: 14px;
-  margin-right: 10px;
+  font-size: 1.4rem;
+  margin-right: 1rem;
   cursor: pointer;
-  padding: 15px 0;
+  padding: 1.5rem 0;
 }
 
 .gallery li.active {
@@ -65,14 +65,14 @@ li {
 
 .gallery li:hover,
 .discover-nav li a:hover,
-.main-nav li a:hover {
+.main-nav a:hover {
   color: #0199E5;
 }
 
 .grid {
   width: 100%;
-  padding-top: 60px;
-  padding-bottom: 20px;
+  padding-top: 6rem;
+  padding-bottom: 2rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -80,7 +80,7 @@ li {
 }
 
 .grid-item {
-  margin: 12px;
+  margin: 1.2rem;
   text-align: center;
   position: relative;
 }
@@ -112,8 +112,8 @@ li {
 }
 
 .space-list-item {
-  width: 360px;
-  height: 350px;
+  width: 36rem;
+  height: 35rem;
   background: #fff;
   position: relative;
   -moz-transition: box-shadow 0.35s ease-out;
@@ -132,7 +132,7 @@ li {
 }
 
 .space-list-item li:nth-of-type(2) {
-  font-size: 18px;
+  font-size: 1.8rem;
 }
 
 .space-list-item li:nth-of-type(2):hover {
@@ -156,7 +156,7 @@ li {
 
 
 .photo {
-  height: 240px;
+  height: 24rem;
   border-top-right-radius: 3px;
   border-top-left-radius: 3px;
   background-size: contain;
@@ -164,12 +164,12 @@ li {
 }
 
 .photo-by {
-  font-size: 12px;
+  font-size: 1.2rem;
   color: #b9c1c7;
 }
 
 .photo-by ~ a {
-  font-size: 14px;
+  font-size: 1.4rem;
   color: #585858;
   z-index: 101;
   position: relative;
@@ -183,39 +183,69 @@ li {
 }
 
 .main-nav {
-  display: flex;
-  justify-content: flex-start;
-  font-size: 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
   background: #222222;
-  padding: 1% 0 1% 10%;
+  padding: 4px 0 4px 10%;
+}
+
+.main-nav ul{
+  display: inline-flex;
+  width: 40%;
 }
 
 .main-nav a.active {
   color: #0199E5;
 }
 
-.icons {
-  width: 20%;
-  margin-right: 1%;
+.icon-container .icons {
+  width: 100%;
 }
 
-.main-nav li {
-  display: flex;
+.icon-container{
+  display: inline-flex;
   align-items: center;
 }
 
-.main-nav li a {
+.icon-container a:nth-of-type(1){
+  width: 25%;
+  margin-right: 5%;
+}
+
+.main-nav li {
+  width: 20%;
+}
+
+.main-nav li:nth-last-child{
+  width: 100%;
+}
+
+.nav-right{
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 65%;
+}
+
+.nav-right span{
+  width: 10rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+
+.main-nav a {
   color: #B7C1CA;
+  font-size: 1.2rem;
 }
 
-.main-nav .avatar {
-  width: 20px;
-  height: 20px;
-}
 
-.main-nav .upload {
-  width: 20px;
-  height: 20px;
+.main-nav .avatar,
+.main-nav .upload{
+  width: 2rem;
+  height: 2rem;
+  margin-right: 7%;
 }
 
 .header-sticky {
@@ -271,28 +301,31 @@ li {
   -moz-border-radius: 3px;
   border-radius: 3px;
   background: #333333;
-  line-height: 26px;
-  font-size: 14px;
-  max-width: 260px;
+  font-size: 1.4rem;
+  width: 400px;
+  max-width: 400px;
+  margin-right: 5%;
 }
 
 .search-input {
   background-color: transparent;
   border: 0;
-  padding: 3px 10px;
+  padding: 2% 5%;
   font-size: 1em;
   position: relative;
   outline: none;
+  width: 60%;
 }
 
 .search-icon {
   float: right;
-  height: 25px;
+  margin-right: 5px;
+  width: 50px;
 }
 
 .search-icon img {
-  width: 20px;
-  padding: 3px 8px;
+  float: right;
+  width: 50%;
   cursor: pointer;
 }
 
@@ -360,4 +393,29 @@ li {
   border: 2px solid #ccc;
   border-top-color: #333;
   animation: spinner .6s linear infinite;
+}
+
+@media (max-width: 1023px){
+  .icon-container {
+    display: block;
+  }
+  .icon-container a:nth-of-type(2)
+  {
+    display: none;
+  }
+
+  .main-nav li {
+    width: 30px;
+    margin-right: 2%;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-box{
+    background: transparent;
+    width: 100px;
+  }
+  .search-input{
+    display: none;
+  }
 }
