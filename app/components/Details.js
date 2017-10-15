@@ -1,9 +1,9 @@
-var React       = require('react');
-var queryString = require('query-string');
+let React       = require('react');
+let queryString = require('query-string');
 let PropTypes   = require('prop-types');
-var api         = require('../utils/api');
+let api         = require('../utils/api');
 let Photo       = require('../components/Photos');
-var LightBox    = require('react-images');
+let LightBox    = require('react-images');
 import Lazyload from 'react-lazyload';
 
 function SelectPhotos(props){
@@ -13,22 +13,29 @@ function SelectPhotos(props){
   const photos  = props.photos;
   const thumbs  = api.computeSizes({width, columns, margin, photos});
   return (
-      <div>
-        {thumbs.map((photo, index) =>{
-          return (
-              <Lazyload throttle = {200} height = {50} key = {photo.id}>
-                <div>
-                  <Photo
-                      key = {photo.id}
-                      index = {index}
-                      photo = {photo}
-                      margin = {margin}
-                      onClick = {(e) => props.openLightBox(index, e)}
-                  />
-                </div>
-              </Lazyload>
-          );
-        })}
+      <div className = "parallax">
+        <div className = "parallax_layer parallax_layer_back bg-image"
+             style = {{backgroundImage: 'url(\'' + photos[0].src + '\')'}}>
+        </div>
+        <div className = "parallax_layer parallax_layer_base">
+          <div className = "parallax-content">
+            {thumbs.map((photo, index) =>{
+              return (
+                  <Lazyload throttle = {200} height = {5} key = {photo.id}>
+                    <div>
+                      <Photo
+                          key = {photo.id}
+                          index = {index}
+                          photo = {photo}
+                          margin = {margin}
+                          onClick = {(e) => props.openLightBox(index, e)}
+                      />
+                    </div>
+                  </Lazyload>
+              );
+            })}
+          </div>
+        </div>
       </div>
   )
 }
@@ -117,33 +124,43 @@ class Details extends React.Component {
     this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
   }
 
+  renderSpinder(){
+    if(!this.state.loading){
+      return null;
+    }
+    return (
+        <div className = "spinner"></div>
+    );
+  }
+
   render(){
     return (
-        <div className = "photos-container" ref = {c => (this.gallery = c)}>
-          {!this.state.photos
-              ? <p>Loading</p>
-              : <div>
-                <SelectPhotos
-                    photos = {this.state.photos}
-                    containerWidth = {this.state.containerWidth}
-                    columns = {this.props.columns}
-                    margin = {this.props.margin}
-                    openLightBox = {this.openLightBox}
-                />
-                <Lazyload throttle = {200} height = {50} key = "1">
-                  <LightBox
-                      images = {this.state.photos.map(x => ({src: x.src, caption: x.name}))}
-                      isOpen = {this.state.LightBoxIsOpen}
-                      onClickPrev = {this.gotoPrevious}
-                      onClickNext = {this.gotoNext}
-                      onClose = {this.closeLightBox}
-                      currentImage = {this.state.currentImage}
+        <div>
+          <div className = "photos-container" ref = {c => (this.gallery = c)}>
+            {!this.state.photos
+                ? <p>Loading</p>
+                : <div>
+                  <SelectPhotos
+                      photos = {this.state.photos}
+                      containerWidth = {this.state.containerWidth}
+                      columns = {this.props.columns}
+                      margin = {this.props.margin}
+                      openLightBox = {this.openLightBox}
                   />
-                </Lazyload>
-              </div>
-
-          }
-          <div style = {{content: '', display: 'table', clear: 'both'}}></div>
+                  <Lazyload throttle = {200} height = {50} key = "1">
+                    <LightBox
+                        images = {this.state.photos.map(x => ({src: x.src, caption: x.name}))}
+                        isOpen = {this.state.LightBoxIsOpen}
+                        onClickPrev = {this.gotoPrevious}
+                        onClickNext = {this.gotoNext}
+                        onClose = {this.closeLightBox}
+                        currentImage = {this.state.currentImage}
+                    />
+                  </Lazyload>
+                </div>
+            }
+            <div style = {{content: '', display: 'table', clear: 'both'}}></div>
+          </div>
         </div>
     );
   }
@@ -153,5 +170,5 @@ module.exports = Details;
 
 Details.defaultProps = {
   columns: 4,
-  margin: 3,
+  margin: 1,
 };
