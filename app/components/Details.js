@@ -45,8 +45,7 @@ class Details extends React.Component {
       containerWidth: 0,
       photos: null,
       currentImage: 0,
-      hasMoreItems: true
-
+      hasMoreItems: true,
     };
     this.getPhotos     = this.getPhotos.bind(this);
     this.closeLightBox = this.closeLightBox.bind(this);
@@ -96,6 +95,8 @@ class Details extends React.Component {
   }
 
   async componentDidMount(){
+    localStorage.setItem('details', JSON.stringify('details'));
+
     await this.getPhotos();
     this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
     window.addEventListener('resize', this.handleResize);
@@ -117,7 +118,6 @@ class Details extends React.Component {
   }
 
   render(){
-
     return (
         <div className = "photos-container" ref = {c => (this.gallery = c)}>
           {!this.state.photos
@@ -153,5 +153,5 @@ module.exports = Details;
 
 Details.defaultProps = {
   columns: 4,
-  margin: 0,
+  margin: 3,
 };
