@@ -14,8 +14,8 @@ function SelectPhotos(props){
   const thumbs  = api.computeSizes({width, columns, margin, photos});
   return (
       <div className = "parallax">
-        <div className = "parallax_layer parallax_layer_back bg-image"
-             style = {{backgroundImage: 'url(\'' + photos[0].src + '\')'}}>
+        <div className = "parallax_layer parallax_layer_back bg-image "style = {{backgroundImage: 'url(\'' + photos[0].src + '\')'}}>
+
         </div>
         <div className = "parallax_layer parallax_layer_base">
           <div className = "parallax-content">
@@ -52,7 +52,7 @@ class Details extends React.Component {
       containerWidth: 0,
       photos: null,
       currentImage: 0,
-      hasMoreItems: true,
+      loading: true
     };
     this.getPhotos     = this.getPhotos.bind(this);
     this.closeLightBox = this.closeLightBox.bind(this);
@@ -95,7 +95,8 @@ class Details extends React.Component {
       let data = queryString.parse(this.props.location.search);
       this.setState(function(){
         return {
-          photos: api.fetchPhotos(data)
+          photos: api.fetchPhotos(data),
+          loading: false
         }
       })
     }
@@ -105,13 +106,15 @@ class Details extends React.Component {
     localStorage.setItem('details', JSON.stringify('details'));
 
     await this.getPhotos();
-    this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
+    this.setState({containerWidth: Math.floor(this.gallery.clientWidth), loading: false});
     window.addEventListener('resize', this.handleResize);
   }
 
   componentDidUpdate(){
     if(this.gallery.clientWidth !== this.state.containerWidth){
-      this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
+      this.setState({
+        containerWidth: Math.floor(this.gallery.clientWidth)
+      });
     }
   }
 
@@ -124,20 +127,11 @@ class Details extends React.Component {
     this.setState({containerWidth: Math.floor(this.gallery.clientWidth)});
   }
 
-  renderSpinder(){
-    if(!this.state.loading){
-      return null;
-    }
-    return (
-        <div className = "spinner"></div>
-    );
-  }
-
   render(){
     return (
         <div>
           <div className = "photos-container" ref = {c => (this.gallery = c)}>
-            {!this.state.photos
+            {this.state.loading
                 ? <p>Loading</p>
                 : <div>
                   <SelectPhotos
@@ -147,7 +141,6 @@ class Details extends React.Component {
                       margin = {this.props.margin}
                       openLightBox = {this.openLightBox}
                   />
-                  <Lazyload throttle = {200} height = {50} key = "1">
                     <LightBox
                         images = {this.state.photos.map(x => ({src: x.src, caption: x.name}))}
                         isOpen = {this.state.LightBoxIsOpen}
@@ -156,7 +149,6 @@ class Details extends React.Component {
                         onClose = {this.closeLightBox}
                         currentImage = {this.state.currentImage}
                     />
-                  </Lazyload>
                 </div>
             }
             <div style = {{content: '', display: 'table', clear: 'both'}}></div>
