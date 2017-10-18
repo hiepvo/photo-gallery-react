@@ -16,19 +16,19 @@ function SelectMainNav(props){
             </li>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/"><img className = "icons" src = "../app/icons/ic_photos.png"/></NavLink>
+                <NavLink to = "/galleries"><img className = "icons" src = "../app/icons/ic_photos.png"/></NavLink>
                 <NavLink activeClassName = "active" to = "/galleries">Discover</NavLink>
               </div>
             </li>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/"><img className = "icons" src = "../app/icons/ic_group.png"/></NavLink>
+                <NavLink to = "/group"><img className = "icons" src = "../app/icons/ic_group.png"/></NavLink>
                 <NavLink to = "/group">Group</NavLink>
               </div>
             </li>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/"><img className = "icons" src = "../app/icons/ic_add_shopping_cart.png"/></NavLink>
+                <NavLink to = "/buy"><img className = "icons" src = "../app/icons/ic_add_shopping_cart.png"/></NavLink>
                 <NavLink to = "/buy">Buy</NavLink>
               </div>
             </li>

@@ -183,9 +183,9 @@ li {
 }
 
 .main-nav {
+  width: 100%;
   display: inline-flex;
   align-items: center;
-  width: 100%;
   background: #222222;
   padding: 4px 0 4px 10%;
 }
@@ -273,13 +273,13 @@ li {
   justify-content: center;
   width: 100%;
   border-bottom: 1px solid #EEEFF2;
-  font-size: 14px;
+  font-size: 1.4rem;
 }
 
 .discover-nav li {
 
-  margin-right: 15px;
-  padding: 16px 0;
+  margin-right: 1.5rem;
+  padding: 1.6rem 0;
   background: #fff;
   cursor: pointer;
   font-weight: bold;
@@ -375,6 +375,57 @@ li {
   color: #0199E5;
 }
 
+
+.parallax {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 1px;
+  -webkit-perspective: 1px;
+}
+
+.parallax_layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 100%;
+  left: 0;
+}
+.parallax_layer_base {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+.parallax_layer_back {
+  transform: translateZ(-1px);
+  -webkit-transform: translateZ(-1px);
+}
+
+.bg-image {
+  width: 100%;
+  background: #d5dde3 no-repeat center center;
+  background-size: cover;
+}
+
+.bg-image img{
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.parallax_layer_back { transform: translateZ(-1px) scale(2); }
+.parallax_layer_deep { transform: translateZ(-2px) scale(3); }
+
+.parallax-content {
+  background: #ffffff;
+  margin-top: 50%;
+  width: 100%;
+}
+
+
 @keyframes spinner {
   to {
     transform: rotate(360deg);
@@ -419,54 +470,31 @@ li {
   .search-input{
     display: none;
   }
+
+  .main-nav{
+    padding: 4px 0 4px 0;
+  }
+
+  .discover-nav li{
+    margin-right: 1rem;
+  }
 }
 
+@media (max-width: 420px) {
+  .main-nav a {
+    font-size: .5rem;
+  }
+  .discover-nav{
+    font-size: 0.8rem;
+  }
 
-.parallax {
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  perspective: 1px;
-  -webkit-perspective: 1px;
 }
 
-.parallax_layer {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-}
-.parallax_layer_base {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-}
-.parallax_layer_back {
-  transform: translateZ(-1px);
-  -webkit-transform: translateZ(-1px);
-}
-
-.bg-image {
-  width: 100%;
-  background: #d5dde3 no-repeat center center;
-  background-size: cover;
-}
-
-.bg-image img{
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  margin: auto;
-}
-
-.parallax_layer_back { transform: translateZ(-1px) scale(2); }
-.parallax_layer_deep { transform: translateZ(-2px) scale(3); }
-
-.parallax-content {
-  background: #ffffff;
-  margin-top: 80vh;
-  width: 100%;
+@media (min-width: 1900px){
+  .main-nav a{
+    font-size: 2rem;
+  }
+  .nav-right span {
+    width: 20rem;
+  }
 }

@@ -65,7 +65,7 @@ module.exports = {
           : rowWidth / columns / totalRatio;
       return row.map(photo => ({
         ...photo,
-        height: 300,
+        height,
         width: height * ratio(photo),
       }));
     });
