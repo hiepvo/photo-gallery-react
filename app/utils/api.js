@@ -14,9 +14,7 @@ module.exports = {
     let galleries     = generateGalleries(photographies);
     let photos        = generatePhotos(galleries);
 
-
     localStorage.setItem('photos', JSON.stringify(photos));
-
     for(let photo of photos){
       for(let g of photographies){
         if(g.user_name === photo.user_name){
@@ -37,34 +35,37 @@ module.exports = {
 
   fetchPhotos: function(data){
     let photos = JSON.parse(localStorage.getItem('photos'));
+    if(data === null){
+      return photos;
+    }
     let photosByGallery = photos.filter((item) => item.gallery_id === parseInt(data.gallery_id));
     return photosByGallery;
   },
 
-  computeSizes: function({ photos, columns, width, margin }) {
-    if (!width) {
+  computeSizes: function({photos, columns, width, margin}){
+    if(!width){
       return [];
     }
     // divide photos over rows, max cells based on `columns`
     // effectively resulting in [[0, 1, 2], [3, 4, 5], [6, 7]]
-    const rows = photos.reduce((acc, cell, idx) => {
+    const rows = photos.reduce((acc, cell, idx) =>{
       const row = Math.floor(idx / columns);
-      acc[row] = acc[row] ? [...acc[row], cell] : [cell];
+      acc[row]  = acc[row] ? [...acc[row], cell] : [cell];
       return acc;
     }, []);
 
     // calculate total ratio of each row, and adjust each cell height and width
     // accordingly.
-    const lastRowIndex = rows.length - 1;
-    const rowsWithSizes = rows.map((row, rowIndex) => {
+    const lastRowIndex  = rows.length - 1;
+    const rowsWithSizes = rows.map((row, rowIndex) =>{
       const totalRatio = row.reduce((result, photo) => result + ratio(photo), 0);
-      const rowWidth = width - row.length * (margin * 2);
-      const height = (rowIndex !== lastRowIndex || row.length > 1)
+      const rowWidth   = width - row.length * (margin * 2);
+      const height     = (rowIndex !== lastRowIndex || row.length > 1)
           ? rowWidth / totalRatio
           : rowWidth / columns / totalRatio;
       return row.map(photo => ({
         ...photo,
-        height,
+        height: 300,
         width: height * ratio(photo),
       }));
     });
@@ -73,7 +74,7 @@ module.exports = {
   }
 };
 
-function ratio({ width, height }) {
+function ratio({width, height}){
   return width / height;
 }
 
@@ -91,7 +92,7 @@ function getRandWidth(){
 
 function generateGalleries(creators){
   let galleries         = [];
-  let numberOfGalleries = getRandomSize(15, 30);
+  let numberOfGalleries = getRandomSize(15, 15);
   for(let i = 0; i < numberOfGalleries; i++){
     if(i % 2 === 0){
       let gal = {
@@ -126,14 +127,13 @@ function generateGalleries(creators){
 }
 
 function generatePhotos(galleries){
-  let photos         = [];
-
+  let photos = [];
   for(let i = 0; i < galleries.length; i++){
-    let numberOfPhotos = getRandomSize(50, 100);
+    let numberOfPhotos = getRandomSize(25, 50);
     for(let j = 0; j < numberOfPhotos; j++){
       let height = getRandHeight();
-      let width = getRandWidth();
-      var photo = {
+      let width  = getRandWidth();
+      let photo  = {
         id: j + 1,
         name: faker.name.findName(),
         curated_by: faker.name.findName(),

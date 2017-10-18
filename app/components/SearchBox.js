@@ -1,7 +1,7 @@
 let React = require('react');
-let api = require('../utils/api');
+let api   = require('../utils/api');
 
-class SearchBox extends React.Component{
+class SearchBox extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -9,24 +9,23 @@ class SearchBox extends React.Component{
       query: ''
     }
   }
+
   onSubmitHandler(event){
     event.preventDefault();
     this.setState(function(query){
-      return{
+      return {
         result: api.fetchSearchResult(query)
       }
     })
   }
 
   render(){
-    return(
-        <div>
-          <div className="search-box">
-            <div className="search-icon">
-              <img src="../app/icons/ic_search.png" />
-            </div>
-            <input className="search-input" id="search" type="text" placeholder="Search"/>
+    return (
+        <div className = "search-box">
+          <div className = "search-icon">
+            <img src = "../app/icons/ic_search.png"/>
           </div>
+          <input className = "search-input" id = "search" type = "text" placeholder = "Search"/>
         </div>
     )
   }

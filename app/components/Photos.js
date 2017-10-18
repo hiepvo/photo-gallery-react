@@ -1,7 +1,6 @@
 let React     = require('react');
 let Link      = require('react-router-dom').Link;
 let PropTypes = require('prop-types');
-
 function imagesLoaded(parentNode){
   const imgElements = parentNode.querySelectorAll('img');
   for(const img of imgElements){
