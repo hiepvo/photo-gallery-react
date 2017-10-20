@@ -2,33 +2,31 @@ let React     = require('react');
 let NavLink   = require('react-router-dom').NavLink;
 let SearchBox = require('./SearchBox');
 
-function SelectMainNav(props){
-  let detail = JSON.parse(localStorage.getItem('details'));
+function SelectMainNav(){
   return (
-      <div id = "main-nav-sticky" className = {detail !== 'details' ? '' : 'header-sticky ' + props.sticky}>
         <div className = "main-nav">
           <ul>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/"><img className = "icons" src = "../app/icons/ic_home.png"/></NavLink>
+                <NavLink to = "/"><img className = "icons" src = "/icons/ic_home.png"/></NavLink>
                 <NavLink exact to = "/">Home</NavLink>
               </div>
             </li>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/galleries"><img className = "icons" src = "../app/icons/ic_photos.png"/></NavLink>
+                <NavLink to = "/galleries"><img className = "icons" src = "/icons/ic_photos.png"/></NavLink>
                 <NavLink activeClassName = "active" to = "/galleries">Discover</NavLink>
               </div>
             </li>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/group"><img className = "icons" src = "../app/icons/ic_group.png"/></NavLink>
+                <NavLink to = "/group"><img className = "icons" src = "/icons/ic_group.png"/></NavLink>
                 <NavLink to = "/group">Group</NavLink>
               </div>
             </li>
             <li>
               <div className = "icon-container">
-                <NavLink to = "/buy"><img className = "icons" src = "../app/icons/ic_add_shopping_cart.png"/></NavLink>
+                <NavLink to = "/buy"><img className = "icons" src = "/icons/ic_add_shopping_cart.png"/></NavLink>
                 <NavLink to = "/buy">Buy</NavLink>
               </div>
             </li>
@@ -36,16 +34,15 @@ function SelectMainNav(props){
           <div className = "nav-right">
             <SearchBox/>
             <span>
-              <img className = "avatar" src = "../app/avatars/3.jpg"/>
+              <img className = "avatar" src = "/avatars/3.jpg"/>
               <NavLink to = "/user">kdobbin</NavLink>
             </span>
             <span>
-              <img className = "upload" src = "../app/icons/ic_upload.png"/>
+              <img className = "upload" src = "/icons/ic_upload.png"/>
               <NavLink to = "/upload">Upload</NavLink>
             </span>
           </div>
         </div>
-      </div>
   )
 }
 

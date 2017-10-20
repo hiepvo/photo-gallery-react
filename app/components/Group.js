@@ -1,9 +1,9 @@
-let React = require('react');
+var React = require('react');
 
 class Group extends React.Component{
   render(){
     return(
-        <div>Group</div>
+        <div>Under Construction</div>
     )
   }
 }

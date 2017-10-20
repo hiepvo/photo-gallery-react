@@ -193,6 +193,7 @@ li {
 .main-nav ul{
   display: inline-flex;
   width: 40%;
+  z-index: 100;
 }
 
 .main-nav a.active {
@@ -226,6 +227,7 @@ li {
   align-items: center;
   justify-content: flex-end;
   width: 65%;
+  z-index: 100;
 }
 
 .nav-right span{
@@ -363,9 +365,9 @@ li {
 .photo-thumbnail a.info-title {
   text-transform: uppercase;
   color: #fff;
-  font-size: 14px;
-  padding-left: 10px;
-  padding-bottom: 15px;
+  font-size: 1.4rem;
+  padding-left: 1rem;
+  padding-bottom: 1.5rem;
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -412,7 +414,7 @@ li {
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: 100px;
   margin: auto;
 }
 
@@ -478,6 +480,10 @@ li {
   .discover-nav li{
     margin-right: 1rem;
   }
+  .photo-thumbnail a.info-title{
+    font-size: .8rem;
+    padding-bottom: 5px;
+  }
 }
 
 @media (max-width: 420px) {
@@ -487,7 +493,6 @@ li {
   .discover-nav{
     font-size: 0.8rem;
   }
-
 }
 
 @media (min-width: 1900px){

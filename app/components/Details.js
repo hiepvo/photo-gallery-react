@@ -167,7 +167,7 @@ class Details extends React.Component {
 
                   />
                   <LightBox
-                      images = {this.state.photos.map(x => ({src: x.src, srcset: x.srcSet, caption: x.name}))}
+                      images = {this.state.photos.map(x => ({src: x.src, caption: x.name}))}
                       isOpen = {this.state.LightBoxIsOpen}
                       onClickPrev = {this.gotoPrevious}
                       onClickNext = {this.gotoNext}

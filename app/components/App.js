@@ -16,12 +16,11 @@ class App extends React.Component{
     return(
         <Router>
           <div className="container">
-            <MainNav>
-            </MainNav>
+            <MainNav />
             <Switch>
-              <Route exact path="/galleries"  component={Discover}/>
-              <Route exact path="/galleries"  component={Discover}/>
-              <Route exact path="/galleries"  component={Discover}/>
+              <Route exact path="/"  component={Home}/>
+              <Route exact path="/Group"  component={Group}/>
+              <Route exact path="/Buy"  component={Buy}/>
               <Route exact path="/galleries"  component={Discover}/>
               <Route path="/galleries/details"  component={Details}/>
               <Route path="/marketplace"  component={Discover}/>
